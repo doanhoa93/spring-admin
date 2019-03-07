@@ -1,0 +1,73 @@
+---
+info:
+  scm-url: "https://github.com/doanhoa93/spring-admin"
+  build-url: "https://github.com/doanhoa93/spring-admin"
+
+logging:
+  file: "target/boot-admin-sample-servlet.log"
+  pattern:
+    file: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID}){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+spring:
+  application:
+    name: spring-boot-admin
+  boot:
+    admin:
+      client:
+        #url: https://localhost:8080
+        url: https://spring-admin.herokuapp.com
+        instance:
+          metadata:
+            tags:
+              environment: test
+  profiles:
+    active:
+      - secure
+
+---
+spring:
+  profiles: dev
+  boot:
+    admin:
+      ui:
+        cache:
+          no-cache: true
+        template-location: file:@project.basedir@/../../spring-boot-admin-server-ui/target/dist/
+        resource-locations: file:@project.basedir@/../../spring-boot-admin-server-ui/target/dist/
+        cache-templates: false
+        extension-resource-locations: file:@project.basedir@/../spring-boot-admin-sample-custom-ui/target/dist/
+
+---
+spring:
+  profiles: insecure
+
+info.tags.security: insecure
+
+---
+spring:
+  profiles: secure
+  security:
+    user:
+      name: "quanghoa"
+      password: "quanghoa"
+  boot:
+    admin:
+      client:
+        username: "quanghoa"       #These two are needed so that the client
+        password: "quanghoa"   #can register at the protected server api
+        instance:
+          metadata:
+            user.name: "quanghoa"         #These two are needed so that the server
+            user.password: "quanghoa" #can access the protected client endpoints
+
+info.tags.security: secured
+

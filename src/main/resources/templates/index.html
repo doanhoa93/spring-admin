@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Tieu Long Lanh Kute -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Nifty - Responsive admin template.</title>
+</head>
+<!--TIPS-->
+<!--You may remove all ID or Class names which contain "demo-", they are only used for demonstration. -->
+<body>
+<form action="https://www.google.com/search" class="searchform" method="get" name="searchform" target="_blank">
+    <input autocomplete="on" class="form-control search" name="q" placeholder="Search in example.com" required="required"  type="text">
+    <button class="button" type="submit">Search</button>
+</form>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<div id="fb-root"></div>
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1495471333905861',
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v2.11'
+        });
+        FB.AppEvents.logPageView();
+    };
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+    }
+    function testAPI() {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', function(response) {
+        });
+    }
+    function statusChangeCallback(response) {
+        if (response.status === 'connected') {
+            var accessToken = response.authResponse.accessToken;
+            window.location.href = 'login-facebook?accessToken='+accessToken;
+            alert('aa');
+        } else {
+            alert('bb');
+            FB.login(function(response) {
+                if(response.authResponse) {
+                    var accessToken = response.authResponse.accessToken;
+                    window.location.href = 'login-facebook?accessToken='+accessToken;
+                }
+            },{scope:'email'});
+        }
+    }
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.11&appId=1495471333905861';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<div class="modal-content">
+    <a onclick="checkLoginState();" class="btn btn-facebook btn-block m-b-sm"><i class="fa fa-facebook pull-left"></i>Đăng nhập với Facebook</a>
+</div>
+</body>
+
+<!-- Tieu Long Lanh Kute -->
+</html>
